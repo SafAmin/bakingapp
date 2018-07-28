@@ -19,6 +19,9 @@ public class RecipeStepsActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        addToolbarNavigationListener();
+
         Intent intent = getIntent();
         selectRecipe = intent.getParcelableExtra(SELECTED_RECIPE_PARAM);
     }

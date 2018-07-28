@@ -21,12 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public static String SELECTED_RECIPE_PARAM = "SELECTED_RECIPE";
 
-    /* @BindView(R.id.toolbar)
-     Toolbar toolbar;
-     @BindView(R.id.layout_content_container)
-     FrameLayout container;*/
     private Toolbar toolbar;
-    private Unbinder unbinder;
     private ProgressDialog progressDialog;
     private boolean isSaveInstance;
 
@@ -35,16 +30,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(getLayoutId());
-        // unbinder = ButterKnife.bind(this);
         configureToolbar();
         initViews();
         progressDialog = new ProgressDialog(this);
 
-        if (savedInstanceState == null) {
-            isSaveInstance = false;
-        } else {
-            isSaveInstance = true;
-        }
+        isSaveInstance = savedInstanceState != null;
     }
 
     public abstract @LayoutRes
@@ -53,10 +43,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract void initViews();
 
     private void configureToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -69,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return toolbar;
     }
 
-    private void addToolbarNavigationListener() {
+    public void addToolbarNavigationListener() {
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
