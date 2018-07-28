@@ -28,6 +28,7 @@ ext {
     loggingInterceptorVersion = '3.10.0'
     butterknifeVersion = '8.8.1'
     picassoVersion = '2.71828'
+    timberVersion = '4.5.1'
 }
 
 dependencies {
@@ -51,4 +52,6 @@ dependencies {
 
     //Picasso
     implementation "com.squareup.picasso:picasso:${picassoVersion}"
+
+    compile "com.jakewharton.timber:timber:${timberVersion}"
 }

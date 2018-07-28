@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.baking.thebaking.R;
-import com.baking.thebaking.base.ToolbarActivity;
+import com.baking.thebaking.base.BaseActivity;
 import com.baking.thebaking.models.Recipes;
 import com.baking.thebaking.models.SelectRecipeModel;
 import com.baking.thebaking.network.BakingRecipesAPI;
@@ -24,12 +23,11 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 import static com.baking.thebaking.utils.calculateNoOfColumns;
 
-public class SelectRecipeActivity extends ToolbarActivity {
-
-    private static String TAG = SelectRecipeActivity.class.getSimpleName();
+public class SelectRecipeActivity extends BaseActivity {
 
     @BindView(R.id.rv_select_recipe)
     RecyclerView rvSelectRecipe;
@@ -45,6 +43,8 @@ public class SelectRecipeActivity extends ToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ButterKnife.bind(this);
+
         service = BakingRecipesClient.getClientInstance().create(BakingRecipesAPI.class);
         showProgressDialog();
         getBakingRecipes();
@@ -56,23 +56,14 @@ public class SelectRecipeActivity extends ToolbarActivity {
     }
 
     @Override
-    public void bindViews() {
-        ButterKnife.bind(this);
-    }
-
-    @Override
     public void initViews() {
-        //setScreenTitle(title);
+        setScreenTitle(title);
         recipeList = new ArrayList<>();
         int mNoOfColumns = calculateNoOfColumns(this);
+        rvSelectRecipe = findViewById(R.id.rv_select_recipe);
         RecyclerView.LayoutManager recipesLayoutManager = new GridLayoutManager(this, mNoOfColumns);
         rvSelectRecipe.setLayoutManager(recipesLayoutManager);
         rvSelectRecipe.setNestedScrollingEnabled(false);
-    }
-
-    @Override
-    protected int getToolbarLayoutResource() {
-        return R.layout.activity_select_recipe;
     }
 
     public void getBakingRecipes() {
@@ -87,7 +78,7 @@ public class SelectRecipeActivity extends ToolbarActivity {
             @Override
             public void onFailure(@NonNull Call<List<Recipes>> call, @NonNull Throwable t) {
                 dismissProgressDialog();
-                Log.e(TAG, "Exception ->" + t);
+                Timber.e("Exception ->" + t);
                 showToast(error);
             }
         });

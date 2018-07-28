@@ -4,18 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.baking.thebaking.R;
-import com.baking.thebaking.base.ToolbarActivity;
+import com.baking.thebaking.base.BaseActivity;
 import com.baking.thebaking.models.SelectRecipeModel;
 
 import butterknife.ButterKnife;
 
-public class RecipeStepsActivity extends ToolbarActivity {
+public class RecipeStepsActivity extends BaseActivity {
 
     private SelectRecipeModel selectRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         selectRecipe = intent.getParcelableExtra(SELECTED_RECIPE_PARAM);
@@ -29,15 +31,5 @@ public class RecipeStepsActivity extends ToolbarActivity {
     @Override
     public void initViews() {
 
-    }
-
-    @Override
-    public void bindViews() {
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    protected int getToolbarLayoutResource() {
-        return R.layout.activity_recipe_steps;
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="layout_select_recipe_padding">10dp</dimen>
-    <dimen name="iv_select_recipe_height">200dp</dimen>
+    <dimen name="iv_select_recipe_height">150dp</dimen>
     <dimen name="tv_select_recipe_name_padding">5dp</dimen>
-
 </resources>
