@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv_recipe_ingredients"
+    <TextView
+        android:id="@+id/tv_recipe_ingredients_ingredient"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/cv_recipe_details_height"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/cv_recipe_details_margin"
-        android:background="@color/colorWhite"
-        card_view:cardCornerRadius="@dimen/cv_recipe_details_corner_radius"
-        card_view:contentPadding="@dimen/cv_recipe_details_content_padding">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorSilver"
+        android:text="fffffffffffffffffffffffffffffffff"
+        android:textStyle="bold" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_recipe_ingredients_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_recipe_ingredients_ingredient"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/tv_recipe_ingredients_quantity_margin_top"
+        android:textColor="@color/colorSilver" />
 
-            <TextView
-                android:id="@+id/tv_recipe_ingredients_ingredient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:textStyle="bold" />
+    <View
+        android:id="@+id/view_recipe_ingredients_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_recipe_ingredients_quantity"
+        android:layout_marginBottom="@dimen/view_recipe_ingredients_separator_margin_bottom"
+        android:layout_marginEnd="@dimen/view_recipe_ingredients_separator_margin_end"
+        android:layout_marginStart="@dimen/view_recipe_ingredients_separator_margin_start"
+        android:layout_marginTop="@dimen/view_recipe_ingredients_separator_margin_top"
+        android:background="@color/ColorYellow" />
 
-            <TextView
-                android:id="@+id/tv_recipe_ingredients_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_recipe_ingredients_ingredient"
-                android:layout_marginTop="@dimen/tv_recipe_ingredients_quantity_margin_top" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+</RelativeLayout>

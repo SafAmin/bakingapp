@@ -6,4 +6,5 @@
     <string name="recipe_details_ingredients_section">Ingredients</string>
     <string name="recipe_details_steps_section">Steps</string>
     <string name="select_recipe_icon_description" translatable="false">Select recipe</string>
+    <string name="recipe_step_details_arrow" translatable="false">Right arrow</string>
 </resources>

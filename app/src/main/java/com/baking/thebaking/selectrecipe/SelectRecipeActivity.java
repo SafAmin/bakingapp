@@ -3,7 +3,7 @@ package com.baking.thebaking.selectrecipe;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.baking.thebaking.R;
@@ -13,6 +13,7 @@ import com.baking.thebaking.models.SelectRecipeModel;
 import com.baking.thebaking.network.BakingRecipesAPI;
 import com.baking.thebaking.network.BakingRecipesClient;
 import com.baking.thebaking.recipedeetails.RecipeStepsActivity;
+import com.baking.thebaking.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,18 +43,18 @@ public class SelectRecipeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         ButterKnife.bind(this);
-        initViews();
         shouldDisplayHomeAsUpEnabled(false);
         setScreenTitle(title);
         service = BakingRecipesClient.getClientInstance().create(BakingRecipesAPI.class);
+        initViews();
         showProgressDialog();
         getBakingRecipes();
     }
 
     public void initViews() {
         recipeList = new ArrayList<>();
-        rvSelectRecipe = findViewById(R.id.rv_select_recipe);
-        RecyclerView.LayoutManager recipesLayoutManager = new LinearLayoutManager(this);
+        int numOfColumns = utils.calculateNoOfColumns(this);
+        RecyclerView.LayoutManager recipesLayoutManager = new GridLayoutManager(this, numOfColumns);
         rvSelectRecipe.setLayoutManager(recipesLayoutManager);
         rvSelectRecipe.setNestedScrollingEnabled(false);
     }
@@ -92,11 +93,15 @@ public class SelectRecipeActivity extends BaseActivity {
                 new SelectRecipeAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(SelectRecipeModel item) {
-                        Intent intent = new Intent(SelectRecipeActivity.this, RecipeStepsActivity.class);
-                        intent.putExtra(SELECTED_RECIPE_PARAM, item);
-                        startActivity(intent);
+                        navigateToDetails(item);
                     }
                 }));
         dismissProgressDialog();
+    }
+
+    private void navigateToDetails(SelectRecipeModel item) {
+        Intent intent = new Intent(this, RecipeStepsActivity.class);
+        intent.putExtra(SELECTED_RECIPE_PARAM, item);
+        startActivity(intent);
     }
 }

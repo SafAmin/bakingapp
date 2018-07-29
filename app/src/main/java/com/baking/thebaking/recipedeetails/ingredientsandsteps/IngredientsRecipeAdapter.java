@@ -63,6 +63,8 @@ public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsRe
         TextView tvRecipeIngredient;
         @BindView(R.id.tv_recipe_ingredients_quantity)
         TextView tvRecipeIngredientSQuantity;
+        @BindView(R.id.view_recipe_ingredients_separator)
+        View viewIngredientsSeparator;
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -73,6 +75,9 @@ public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsRe
         void bindData(final IngredientsItem model, final OnItemClickListener listener) {
             tvRecipeIngredient.setText(model.getIngredient());
             tvRecipeIngredientSQuantity.setText(model.getQuantity() + " " + model.getMeasure());
+            if (getAdapterPosition() == ingredientsList.size()) {
+                viewIngredientsSeparator.setVisibility(View.GONE);
+            }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

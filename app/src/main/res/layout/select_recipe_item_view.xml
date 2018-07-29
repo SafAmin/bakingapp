@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:padding="@dimen/layout_select_recipe_padding">
 
     <ImageView
@@ -10,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/iv_select_recipe_height"
         android:scaleType="fitXY"
-        android:contentDescription="@string/select_recipe_icon_description"
-        android:src="@drawable/ic_baking_recipes"/>
+        android:contentDescription="@string/select_recipe_icon_description" />
 
     <TextView
         android:id="@+id/tv_recipe_name"
