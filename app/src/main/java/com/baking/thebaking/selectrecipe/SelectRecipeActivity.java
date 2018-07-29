@@ -3,7 +3,7 @@ package com.baking.thebaking.selectrecipe;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.baking.thebaking.R;
@@ -25,8 +25,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-import static com.baking.thebaking.utils.calculateNoOfColumns;
-
 public class SelectRecipeActivity extends BaseActivity {
 
     @BindView(R.id.rv_select_recipe)
@@ -44,26 +42,25 @@ public class SelectRecipeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         ButterKnife.bind(this);
-
+        initViews();
+        shouldDisplayHomeAsUpEnabled(false);
+        setScreenTitle(title);
         service = BakingRecipesClient.getClientInstance().create(BakingRecipesAPI.class);
         showProgressDialog();
         getBakingRecipes();
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_select_recipe;
+    public void initViews() {
+        recipeList = new ArrayList<>();
+        rvSelectRecipe = findViewById(R.id.rv_select_recipe);
+        RecyclerView.LayoutManager recipesLayoutManager = new LinearLayoutManager(this);
+        rvSelectRecipe.setLayoutManager(recipesLayoutManager);
+        rvSelectRecipe.setNestedScrollingEnabled(false);
     }
 
     @Override
-    public void initViews() {
-        setScreenTitle(title);
-        recipeList = new ArrayList<>();
-        int mNoOfColumns = calculateNoOfColumns(this);
-        rvSelectRecipe = findViewById(R.id.rv_select_recipe);
-        RecyclerView.LayoutManager recipesLayoutManager = new GridLayoutManager(this, mNoOfColumns);
-        rvSelectRecipe.setLayoutManager(recipesLayoutManager);
-        rvSelectRecipe.setNestedScrollingEnabled(false);
+    public int getLayoutId() {
+        return R.layout.activity_select_recipe;
     }
 
     public void getBakingRecipes() {
@@ -85,8 +82,11 @@ public class SelectRecipeActivity extends BaseActivity {
     }
 
     private void generateRecipesDataList(List<Recipes> recipes) {
+        Recipes recipe;
         for (int i = 0; i < recipes.size(); i++) {
-            recipeList.add(i, new SelectRecipeModel(recipes.get(i).getName()));
+            recipe = recipes.get(i);
+            recipeList.add(i, new SelectRecipeModel(recipe.getName(), recipe.getIngredients(),
+                    recipe.getSteps()));
         }
         rvSelectRecipe.setAdapter(new SelectRecipeAdapter(recipeList,
                 new SelectRecipeAdapter.OnItemClickListener() {

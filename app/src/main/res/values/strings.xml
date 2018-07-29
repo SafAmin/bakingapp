@@ -3,5 +3,7 @@
     <string name="recipes_loading">Loading....</string>
     <string name="recipes_error">Something went wrong...Please try later!</string>
     <string name="select_recipes_title">Baking Time</string>
+    <string name="recipe_details_ingredients_section">Ingredients</string>
+    <string name="recipe_details_steps_section">Steps</string>
     <string name="select_recipe_icon_description" translatable="false">Select recipe</string>
 </resources>

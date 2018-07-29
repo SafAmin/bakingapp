@@ -3,15 +3,12 @@ package com.baking.thebaking.base;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
 import com.baking.thebaking.R;
-
-import butterknife.Unbinder;
 
 /**
  * Created by Safa Amin on 7/22/2018.
@@ -31,7 +28,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setContentView(getLayoutId());
         configureToolbar();
-        initViews();
         progressDialog = new ProgressDialog(this);
 
         isSaveInstance = savedInstanceState != null;
@@ -40,8 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract @LayoutRes
     int getLayoutId();
 
-    public abstract void initViews();
-
     private void configureToolbar() {
         toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -49,13 +43,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void setScreenTitle(String title) {
-        toolbar.setTitle(title);
+    public void shouldDisplayHomeAsUpEnabled(boolean display) {
+        if (toolbar != null) {
+            if (display) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(display);
+                addToolbarNavigationListener();
+            }
+        }
     }
 
-    @Nullable
-    public Toolbar getToolbar() {
-        return toolbar;
+    public void setScreenTitle(String title) {
+        if (toolbar != null) {
+            getSupportActionBar().setTitle(title);
+        }
     }
 
     public void addToolbarNavigationListener() {

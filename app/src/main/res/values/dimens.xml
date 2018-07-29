@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="layout_select_recipe_padding">10dp</dimen>
-    <dimen name="iv_select_recipe_height">150dp</dimen>
+    <dimen name="iv_select_recipe_height">100dp</dimen>
     <dimen name="tv_select_recipe_name_padding">5dp</dimen>
+    <dimen name="layout_recipe_details_padding">10dp</dimen>
+    <dimen name="rv_recipe_ingredients_margin_top">10dp</dimen>
+    <dimen name="rv_recipe_steps_margin_top">10dp</dimen>
+    <dimen name="cv_recipe_details_height">100dp</dimen>
+    <dimen name="cv_recipe_details_margin">5dp</dimen>
+    <dimen name="cv_recipe_details_corner_radius">2dp</dimen>
+    <dimen name="cv_recipe_details_content_padding">10dp</dimen>
+    <dimen name="tv_recipe_ingredients_quantity_margin_top">10dp</dimen>
+    <dimen name="iv_recipe_steps_details_arrow_width">45dp</dimen>
+    <dimen name="iv_recipe_steps_details_arrow_height">45dp</dimen>
 </resources>
