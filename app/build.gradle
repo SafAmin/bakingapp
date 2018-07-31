@@ -29,6 +29,7 @@ ext {
     butterknifeVersion = '8.8.1'
     picassoVersion = '2.71828'
     timberVersion = '4.5.1'
+    exoplayerVersion = 'r2.4.0'
 }
 
 dependencies {
@@ -54,5 +55,7 @@ dependencies {
     //Picasso
     implementation "com.squareup.picasso:picasso:${picassoVersion}"
 
-    compile "com.jakewharton.timber:timber:${timberVersion}"
+    implementation "com.jakewharton.timber:timber:${timberVersion}"
+
+    implementation "com.google.android.exoplayer:exoplayer:${exoplayerVersion}"
 }

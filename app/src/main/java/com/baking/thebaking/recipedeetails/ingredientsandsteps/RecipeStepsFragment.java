@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.baking.thebaking.R;
 import com.baking.thebaking.models.IngredientsItem;
 import com.baking.thebaking.models.StepsItem;
+import com.baking.thebaking.recipedeetails.RecipeStepDetailsFragment;
+import com.baking.thebaking.recipedeetails.RecipeStepsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +95,8 @@ public class RecipeStepsFragment extends Fragment {
                 new StepsRecipeAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(StepsItem item) {
+                        ((RecipeStepsActivity) getActivity()).
+                                invalidateView(RecipeStepDetailsFragment.getInstance(item));
                     }
                 }));
     }

@@ -75,7 +75,7 @@ public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsRe
         void bindData(final IngredientsItem model, final OnItemClickListener listener) {
             tvRecipeIngredient.setText(model.getIngredient());
             tvRecipeIngredientSQuantity.setText(model.getQuantity() + " " + model.getMeasure());
-            if (getAdapterPosition() == ingredientsList.size()) {
+            if (getAdapterPosition() == (ingredientsList.size() - 1)) {
                 viewIngredientsSeparator.setVisibility(View.GONE);
             }
             itemView.setOnClickListener(new View.OnClickListener() {
