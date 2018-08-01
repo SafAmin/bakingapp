@@ -26,5 +26,5 @@
     <dimen name="layout_recipe_steps_description_container_height">120dp</dimen>
     <dimen name="cv_recipe_details_steps_width">110dp</dimen>
     <dimen name="cv_recipe_details_steps_height">120dp</dimen>
-    <dimen name="playerView_recipe_step_height">300dp</dimen>
+    <dimen name="playerView_recipe_step_height">250dp</dimen>
 </resources>
