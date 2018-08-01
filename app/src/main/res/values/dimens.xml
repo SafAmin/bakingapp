@@ -18,4 +18,13 @@
     <dimen name="view_recipe_ingredients_separator_margin_end">10dp</dimen>
     <dimen name="view_recipe_ingredients_separator_margin_top">10dp</dimen>
     <dimen name="view_recipe_ingredients_separator_margin_bottom">10dp</dimen>
+    <dimen name="playerView_recipe_step_padding">10dp</dimen>
+    <dimen name="layout_recipe_steps_container_margin_start">10dp</dimen>
+    <dimen name="layout_recipe_steps_container_margin_end">10dp</dimen>
+    <dimen name="layout_recipe_steps_container_margin_bottom">10dp</dimen>
+    <dimen name="layout_recipe_steps_description_container_width">110dp</dimen>
+    <dimen name="layout_recipe_steps_description_container_height">120dp</dimen>
+    <dimen name="cv_recipe_details_steps_width">110dp</dimen>
+    <dimen name="cv_recipe_details_steps_height">120dp</dimen>
+    <dimen name="playerView_recipe_step_height">300dp</dimen>
 </resources>

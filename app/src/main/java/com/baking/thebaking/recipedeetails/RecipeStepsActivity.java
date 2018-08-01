@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.baking.thebaking.R;
 import com.baking.thebaking.base.BaseActivity;
 import com.baking.thebaking.models.SelectRecipeModel;
-import com.baking.thebaking.recipedeetails.ingredientsandsteps.RecipeStepsFragment;
+import com.baking.thebaking.recipedeetails.ingredientsandstepsfragment.RecipeStepsFragment;
 
 import butterknife.ButterKnife;
 

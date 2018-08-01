@@ -1,4 +1,4 @@
-package com.baking.thebaking.recipedeetails.ingredientsandsteps;
+package com.baking.thebaking.recipedeetails.stepmediafragment;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,27 +16,27 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * This Adapter responsible for making a View for each item in the selected recipe details RecyclerView
- * within {@link RecipeStepsFragment}
+ * This Adapter responsible for making a View for each item in the recipe steps RecyclerView
+ * within {@link RecipeStepDetailsFragment}
  * <p>
  * Created by Safa Amin on 7/22/2018.
  */
 
-public class StepsRecipeAdapter extends RecyclerView.Adapter<StepsRecipeAdapter.ViewHolder> {
+public class StepMediaRecipeAdapter extends RecyclerView.Adapter<StepMediaRecipeAdapter.ViewHolder> {
 
     private List<StepsItem> stepsList;
     private final OnItemClickListener listener;
 
-    StepsRecipeAdapter(List<StepsItem> steps, OnItemClickListener listener) {
+    public StepMediaRecipeAdapter(List<StepsItem> steps, OnItemClickListener listener) {
         this.stepsList = steps;
         this.listener = listener;
     }
 
     @Override
     @NonNull
-    public StepsRecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StepMediaRecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View rootView = inflater.inflate(R.layout.recipe_steps_item_view, parent, false);
+        View rootView = inflater.inflate(R.layout.recipe_steps_details_item_view, parent, false);
 
         return new ViewHolder(rootView);
     }
