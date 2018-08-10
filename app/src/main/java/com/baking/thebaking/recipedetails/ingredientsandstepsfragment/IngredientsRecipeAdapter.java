@@ -1,4 +1,4 @@
-package com.baking.thebaking.recipedeetails.ingredientsandstepsfragment;
+package com.baking.thebaking.recipedetails.ingredientsandstepsfragment;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -63,8 +63,6 @@ public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsRe
         TextView tvRecipeIngredient;
         @BindView(R.id.tv_recipe_ingredients_quantity)
         TextView tvRecipeIngredientSQuantity;
-        @BindView(R.id.view_recipe_ingredients_separator)
-        View viewIngredientsSeparator;
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -73,11 +71,9 @@ public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsRe
         }
 
         void bindData(final IngredientsItem model, final OnItemClickListener listener) {
-            tvRecipeIngredient.setText(model.getIngredient());
-            tvRecipeIngredientSQuantity.setText(model.getQuantity() + " " + model.getMeasure());
-            if (getAdapterPosition() == (ingredientsList.size() - 1)) {
-                viewIngredientsSeparator.setVisibility(View.GONE);
-            }
+            tvRecipeIngredient.setText(model.getIngredient() + " ");
+            tvRecipeIngredientSQuantity.setText("(" + model.getQuantity() + " " + model.getMeasure() + ")");
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

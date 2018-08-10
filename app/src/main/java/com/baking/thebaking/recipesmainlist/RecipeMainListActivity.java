@@ -1,4 +1,4 @@
-package com.baking.thebaking.selectrecipe;
+package com.baking.thebaking.recipesmainlist;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import com.baking.thebaking.models.Recipes;
 import com.baking.thebaking.models.SelectRecipeModel;
 import com.baking.thebaking.network.BakingRecipesAPI;
 import com.baking.thebaking.network.BakingRecipesClient;
-import com.baking.thebaking.recipedeetails.RecipeStepsActivity;
+import com.baking.thebaking.recipedetails.RecipeStepsActivity;
 import com.baking.thebaking.utils;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class SelectRecipeActivity extends BaseActivity {
+public class RecipeMainListActivity extends BaseActivity {
 
     @BindView(R.id.rv_select_recipe)
     RecyclerView rvSelectRecipe;
@@ -89,8 +89,8 @@ public class SelectRecipeActivity extends BaseActivity {
             recipeList.add(i, new SelectRecipeModel(recipe.getName(), recipe.getIngredients(),
                     recipe.getSteps()));
         }
-        rvSelectRecipe.setAdapter(new SelectRecipeAdapter(recipeList,
-                new SelectRecipeAdapter.OnItemClickListener() {
+        rvSelectRecipe.setAdapter(new RecipeListAdapter(recipeList,
+                new RecipeListAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(SelectRecipeModel item) {
                         navigateToDetails(item);

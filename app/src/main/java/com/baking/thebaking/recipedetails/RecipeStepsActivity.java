@@ -1,4 +1,4 @@
-package com.baking.thebaking.recipedeetails;
+package com.baking.thebaking.recipedetails;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.baking.thebaking.R;
 import com.baking.thebaking.base.BaseActivity;
 import com.baking.thebaking.models.SelectRecipeModel;
-import com.baking.thebaking.recipedeetails.ingredientsandstepsfragment.RecipeStepsFragment;
+import com.baking.thebaking.recipedetails.ingredientsandstepsfragment.RecipeStepsFragment;
 
 import butterknife.ButterKnife;
 
