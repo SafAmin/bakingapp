@@ -47,6 +47,8 @@ public class RecipeStepFragment extends Fragment {
 
     public static String SELECTED_RECIPE_STEP_PARAM = "SELECTED_RECIPE_STEP";
     public static String RECIPE_DETAILS_STEPS_PARAM = "RECIPE_DETAILS_STEPS";
+    public static String SAVED_SELECTED_RECIPE_STEP_PARAM = "SAVED_SELECTED_RECIPE_STEP";
+    public static String SAVED_RECIPE_DETAILS_STEPS_PARAM = "SAVED_RECIPE_DETAILS_STEPS";
 
     @BindView(R.id.playerView_recipe_step)
     SimpleExoPlayerView exoPlayerView;
@@ -79,9 +81,13 @@ public class RecipeStepFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         Bundle args = getArguments();
-        if (args != null) {
+        if (args != null && savedInstanceState == null) {
             step = args.getParcelable(SELECTED_RECIPE_STEP_PARAM);
             stepsList = args.getParcelableArrayList(RECIPE_DETAILS_STEPS_PARAM);
+            recipeVideoUrl = step.getVideoURL();
+        } else {
+            step = savedInstanceState.getParcelable(SAVED_SELECTED_RECIPE_STEP_PARAM);
+            stepsList = savedInstanceState.getParcelableArrayList(SAVED_RECIPE_DETAILS_STEPS_PARAM);
             recipeVideoUrl = step.getVideoURL();
         }
 
@@ -103,32 +109,29 @@ public class RecipeStepFragment extends Fragment {
     private void invalidateRecipeStepsView() {
         RecyclerView.LayoutManager stepsLayoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
-        rvRecipeSteps.setLayoutManager(stepsLayoutManager);
-        rvRecipeSteps.setNestedScrollingEnabled(false);
-        rvRecipeSteps.setAdapter(new RecipeStepsAdapter(stepsList,
-                new RecipeStepsAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(StepsItem item) {
-                        tvStepDescription.setText(item.getDescription());
-                        if (item.getVideoURL() != null && !item.getVideoURL().equals("")) {
-                            buildMediaSource(item.getVideoURL());
+        if (stepsList != null) {
+            toggleRecipeStepsView(View.VISIBLE);
+            rvRecipeSteps.setLayoutManager(stepsLayoutManager);
+            rvRecipeSteps.setNestedScrollingEnabled(false);
+            rvRecipeSteps.setAdapter(new RecipeStepsAdapter(stepsList,
+                    new RecipeStepsAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(StepsItem item) {
+                            tvStepDescription.setText(item.getDescription());
+                            if (item.getVideoURL() != null && !item.getVideoURL().equals("")) {
+                                buildMediaSource(item.getVideoURL());
+                            }
                         }
-                    }
-                }));
+                    }));
+        } else {
+            toggleRecipeStepsView(View.GONE);
+        }
     }
 
     private void invalidateVideoPlayerView() {
         if (recipeVideoUrl != null && !recipeVideoUrl.isEmpty()) {
             toggleVideoPlayerView(View.VISIBLE);
             initializePlayer();
-
-            /*if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
-                // Expand video, hide description, hide system UI
-                expandVideoView(exoPlayerView);
-                setViewVisibility(descriptionCard, false);
-                hideSystemUI();
-            }*/
-
         } else {
             toggleVideoPlayerView(View.GONE);
         }
@@ -241,5 +244,12 @@ public class RecipeStepFragment extends Fragment {
 
         unbinder.unbind();
         releasePlayer();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle currentState) {
+        super.onSaveInstanceState(currentState);
+        currentState.putParcelable(SAVED_SELECTED_RECIPE_STEP_PARAM, step);
+        currentState.putParcelableArrayList(SAVED_RECIPE_DETAILS_STEPS_PARAM, (ArrayList<? extends Parcelable>) stepsList);
     }
 }

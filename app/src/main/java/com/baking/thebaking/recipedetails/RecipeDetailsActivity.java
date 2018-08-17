@@ -12,13 +12,14 @@ import com.baking.thebaking.models.IngredientsItem;
 import com.baking.thebaking.models.SelectRecipeModel;
 import com.baking.thebaking.models.StepsItem;
 import com.baking.thebaking.recipedetails.ingredientsandstepsfragment.RecipeStepsFragment;
+import com.baking.thebaking.recipedetails.recipestepfragment.RecipeStepFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class RecipeDetailsActivity extends BaseActivity {
+public class RecipeDetailsActivity extends BaseActivity implements OnRecipeStepSelectedInterface {
 
     public static String SELECTED_RECIPE_INGREDIENTS_PARAM = "SELECTED_RECIPE_INGREDIENTS";
     public static String SELECTED_RECIPE_STEPS_PARAM = "SELECTED_RECIPE_STEPS";
@@ -44,6 +45,9 @@ public class RecipeDetailsActivity extends BaseActivity {
         displayRecipeDetailsFragment();
     }
 
+    /**
+     * This method handles Master Detail Flow.
+     */
     private void displayRecipeDetailsFragment() {
         RecipeStepsFragment recipeStepsFragment = RecipeStepsFragment.
                 getInstance(ingredientsList, stepsList);
@@ -58,16 +62,27 @@ public class RecipeDetailsActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_recipe_details;
-    }
-
     public void invalidateView(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.layout_placeholder, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void OnRecipeStepSelected(StepsItem stepItem) {
+        if (mTwoPane) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.layout_recipe_step_details, RecipeStepFragment.getInstance(stepItem,
+                            null)).commit();
+        } else {
+            invalidateView(RecipeStepFragment.getInstance(stepItem, stepsList));
+        }
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_recipe_details;
     }
 
     @Override

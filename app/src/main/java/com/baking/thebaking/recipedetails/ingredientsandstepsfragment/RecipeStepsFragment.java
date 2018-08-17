@@ -14,7 +14,6 @@ import com.baking.thebaking.R;
 import com.baking.thebaking.models.IngredientsItem;
 import com.baking.thebaking.models.StepsItem;
 import com.baking.thebaking.recipedetails.RecipeDetailsActivity;
-import com.baking.thebaking.recipedetails.recipestepfragment.RecipeStepFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +93,9 @@ public class RecipeStepsFragment extends Fragment {
                 new StepsRecipeAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(StepsItem item) {
-                        ((RecipeDetailsActivity) getActivity()).
-                                invalidateView(RecipeStepFragment.getInstance(item, stepsList));
+                        if (((RecipeDetailsActivity) getActivity()) != null) {
+                            ((RecipeDetailsActivity) getActivity()).OnRecipeStepSelected(item);
+                        }
                     }
                 }));
     }
