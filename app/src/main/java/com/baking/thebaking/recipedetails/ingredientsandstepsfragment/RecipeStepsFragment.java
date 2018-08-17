@@ -9,12 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.baking.thebaking.R;
 import com.baking.thebaking.models.IngredientsItem;
 import com.baking.thebaking.models.StepsItem;
-import com.baking.thebaking.recipedetails.RecipeStepsActivity;
+import com.baking.thebaking.recipedetails.RecipeDetailsActivity;
 import com.baking.thebaking.recipedetails.recipestepfragment.RecipeStepFragment;
 
 import java.util.ArrayList;
@@ -62,8 +61,6 @@ public class RecipeStepsFragment extends Fragment {
             ingredientsList = args.getParcelableArrayList(SELECTED_RECIPE_INGREDIENTS_PARAM);
             stepsList = args.getParcelableArrayList(SELECTED_RECIPE_STEPS_PARAM);
         }
-        if (getActivity() != null) {
-        }
 
         return view;
     }
@@ -71,7 +68,6 @@ public class RecipeStepsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         initViews();
-        invalidateViews();
     }
 
     private void initViews() {
@@ -82,6 +78,8 @@ public class RecipeStepsFragment extends Fragment {
         RecyclerView.LayoutManager stepsLayoutManager = new LinearLayoutManager(getContext());
         rvRecipeSteps.setLayoutManager(stepsLayoutManager);
         rvRecipeSteps.setNestedScrollingEnabled(false);
+
+        invalidateViews();
     }
 
     private void invalidateViews() {
@@ -96,7 +94,7 @@ public class RecipeStepsFragment extends Fragment {
                 new StepsRecipeAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(StepsItem item) {
-                        ((RecipeStepsActivity) getActivity()).
+                        ((RecipeDetailsActivity) getActivity()).
                                 invalidateView(RecipeStepFragment.getInstance(item, stepsList));
                     }
                 }));

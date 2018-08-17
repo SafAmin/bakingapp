@@ -12,7 +12,7 @@ import com.baking.thebaking.models.Recipes;
 import com.baking.thebaking.models.SelectRecipeModel;
 import com.baking.thebaking.network.BakingRecipesAPI;
 import com.baking.thebaking.network.BakingRecipesClient;
-import com.baking.thebaking.recipedetails.RecipeStepsActivity;
+import com.baking.thebaking.recipedetails.RecipeDetailsActivity;
 import com.baking.thebaking.utils;
 
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class RecipeMainListActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_select_recipe;
+        return R.layout.activity_recipe_main_list;
     }
 
     public void getBakingRecipes() {
@@ -100,7 +100,7 @@ public class RecipeMainListActivity extends BaseActivity {
     }
 
     private void navigateToDetails(SelectRecipeModel item) {
-        Intent intent = new Intent(this, RecipeStepsActivity.class);
+        Intent intent = new Intent(this, RecipeDetailsActivity.class);
         intent.putExtra(SELECTED_RECIPE_PARAM, item);
         startActivity(intent);
     }
