@@ -1,4 +1,4 @@
-package com.baking.thebaking.recipedetails.recipestepfragment;
+package com.baking.thebaking.recipedetails.recipestep;
 
 import android.net.Uri;
 import android.os.Bundle;

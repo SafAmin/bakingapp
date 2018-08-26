@@ -8,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.baking.thebaking.R;
 import com.baking.thebaking.base.BaseActivity;
+import com.baking.thebaking.base.utils;
 import com.baking.thebaking.models.Recipes;
 import com.baking.thebaking.models.SelectRecipeModel;
 import com.baking.thebaking.network.BakingRecipesAPI;
 import com.baking.thebaking.network.BakingRecipesClient;
 import com.baking.thebaking.recipedetails.RecipeDetailsActivity;
-import com.baking.thebaking.utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_padding"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+   <!-- <TextView
+        android:id="@+id/widget_recipe_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        tools:text="Nutella Pie"/>
+
+    <LinearLayout
+        android:id="@+id/widget_ingredients_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>-->
+
+    <GridView
+        android:id="@+id/widget_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="1"
+        android:columnWidth="25dp"
+        android:layout_margin="2dp"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp" />
+
+</LinearLayout>

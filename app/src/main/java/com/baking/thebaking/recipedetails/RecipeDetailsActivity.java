@@ -11,8 +11,8 @@ import com.baking.thebaking.base.BaseActivity;
 import com.baking.thebaking.models.IngredientsItem;
 import com.baking.thebaking.models.SelectRecipeModel;
 import com.baking.thebaking.models.StepsItem;
-import com.baking.thebaking.recipedetails.ingredientsandstepsfragment.RecipeStepsFragment;
-import com.baking.thebaking.recipedetails.recipestepfragment.RecipeStepFragment;
+import com.baking.thebaking.recipedetails.ingredientsandsteps.RecipeStepsFragment;
+import com.baking.thebaking.recipedetails.recipestep.RecipeStepFragment;
 
 import java.util.ArrayList;
 import java.util.List;

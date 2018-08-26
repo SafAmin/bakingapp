@@ -1,4 +1,4 @@
-package com.baking.thebaking.recipedetails.ingredientsandstepsfragment;
+package com.baking.thebaking.recipedetails.ingredientsandsteps;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baking.thebaking.R;
-import com.baking.thebaking.models.StepsItem;
+import com.baking.thebaking.models.IngredientsItem;
 
 import java.util.List;
 
@@ -22,45 +22,47 @@ import butterknife.ButterKnife;
  * Created by Safa Amin on 7/22/2018.
  */
 
-public class StepsRecipeAdapter extends RecyclerView.Adapter<StepsRecipeAdapter.ViewHolder> {
+public class IngredientsRecipeAdapter extends RecyclerView.Adapter<IngredientsRecipeAdapter.ViewHolder> {
 
-    private List<StepsItem> stepsList;
+    private List<IngredientsItem> ingredientsList;
     private final OnItemClickListener listener;
 
-    public StepsRecipeAdapter(List<StepsItem> steps, OnItemClickListener listener) {
-        this.stepsList = steps;
+    IngredientsRecipeAdapter(List<IngredientsItem> ingredients, OnItemClickListener listener) {
+        this.ingredientsList = ingredients;
         this.listener = listener;
     }
 
     @Override
     @NonNull
-    public StepsRecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public IngredientsRecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View rootView = inflater.inflate(R.layout.recipe_steps_item_view, parent, false);
+        View rootView = inflater.inflate(R.layout.recipe_ingredients_item_view, parent, false);
 
         return new ViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        StepsItem model = stepsList.get(holder.getAdapterPosition());
+        IngredientsItem model = ingredientsList.get(holder.getAdapterPosition());
         holder.bindData(model, listener);
     }
 
-    public void add(int position, StepsItem item) {
-        stepsList.add(position, item);
+    public void add(int position, IngredientsItem item) {
+        ingredientsList.add(position, item);
         notifyItemInserted(position);
     }
 
     public void remove(int position) {
-        stepsList.remove(position);
+        ingredientsList.remove(position);
         notifyItemRemoved(position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_recipe_steps_description)
-        TextView tvRecipeStepsDescription;
+        @BindView(R.id.tv_recipe_ingredients_ingredient)
+        TextView tvRecipeIngredient;
+        @BindView(R.id.tv_recipe_ingredients_quantity)
+        TextView tvRecipeIngredientSQuantity;
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -68,8 +70,10 @@ public class StepsRecipeAdapter extends RecyclerView.Adapter<StepsRecipeAdapter.
             ButterKnife.bind(this, itemView);
         }
 
-        void bindData(final StepsItem model, final OnItemClickListener listener) {
-            tvRecipeStepsDescription.setText(model.getShortDescription());
+        void bindData(final IngredientsItem model, final OnItemClickListener listener) {
+            tvRecipeIngredient.setText(model.getIngredient());
+            tvRecipeIngredientSQuantity.setText("(" + model.getQuantity() + " " + model.getMeasure() + ")");
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,12 +84,12 @@ public class StepsRecipeAdapter extends RecyclerView.Adapter<StepsRecipeAdapter.
     }
 
     public interface OnItemClickListener {
-        void onItemClick(StepsItem item);
+        void onItemClick(IngredientsItem item);
     }
 
     @Override
     public int getItemCount() {
-        return stepsList.size();
+        return ingredientsList.size();
     }
 
     @Override

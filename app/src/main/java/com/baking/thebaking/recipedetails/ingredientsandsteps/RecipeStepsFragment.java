@@ -1,4 +1,4 @@
-package com.baking.thebaking.recipedetails.ingredientsandstepsfragment;
+package com.baking.thebaking.recipedetails.ingredientsandsteps;
 
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -14,6 +14,7 @@ import com.baking.thebaking.R;
 import com.baking.thebaking.models.IngredientsItem;
 import com.baking.thebaking.models.StepsItem;
 import com.baking.thebaking.recipedetails.RecipeDetailsActivity;
+import com.baking.thebaking.widget.BakingWidgetUpdateService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class RecipeStepsFragment extends Fragment {
     private Unbinder unbinder;
     private List<IngredientsItem> ingredientsList;
     private List<StepsItem> stepsList;
+    private ArrayList<String> recipeIngredientsWidget = new ArrayList<>();
 
     public static RecipeStepsFragment getInstance(List<IngredientsItem> ingredients, List<StepsItem> steps) {
         RecipeStepsFragment fragment = new RecipeStepsFragment();
@@ -78,7 +80,21 @@ public class RecipeStepsFragment extends Fragment {
         rvRecipeSteps.setLayoutManager(stepsLayoutManager);
         rvRecipeSteps.setNestedScrollingEnabled(false);
 
+        initWidgetList();
         invalidateViews();
+    }
+
+    private void initWidgetList() {
+        String ingredient;
+        String quantity;
+        String measure;
+        for (int i = 0; i < ingredientsList.size(); i++) {
+            ingredient = ingredientsList.get(i).getIngredient();
+            quantity = String.valueOf(ingredientsList.get(i).getQuantity());
+            measure = ingredientsList.get(i).getMeasure();
+            recipeIngredientsWidget.add(i, ingredient + quantity + measure);
+        }
+        BakingWidgetUpdateService.startBakingService(getContext(), recipeIngredientsWidget);
     }
 
     private void invalidateViews() {

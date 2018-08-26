@@ -1,4 +1,4 @@
-package com.baking.thebaking.recipedetails.recipestepfragment;
+package com.baking.thebaking.recipedetails.recipestep;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

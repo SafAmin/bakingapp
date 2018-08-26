@@ -24,6 +24,11 @@
     <dimen name="cv_recipe_details_steps_width">110dp</dimen>
     <dimen name="cv_recipe_details_steps_height">120dp</dimen>
     <dimen name="playerView_recipe_step_height">250dp</dimen>
+    <dimen name="widget_default_height">180dp</dimen>
+    <dimen name="widget_default_width">250dp</dimen>
+    <dimen name="widget_default_resize_width">180dp</dimen>
+    <dimen name="widget_default_resize_height">110dp</dimen>
+    <dimen name="widget_padding">4dp</dimen>
 
     <!--
 Refer to App Widget Documentation for margin information

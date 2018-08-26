@@ -1,4 +1,4 @@
-package com.baking.thebaking;
+package com.baking.thebaking.base;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
