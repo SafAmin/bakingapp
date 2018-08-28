@@ -34,7 +34,12 @@ public class RecipeDetailsActivity extends BaseActivity implements OnRecipeStepS
 
         ButterKnife.bind(this);
         shouldDisplayHomeAsUpEnabled(true);
-        initViews();
+        if(savedInstanceState == null) {
+            initViews();
+        } else {
+            ingredientsList = savedInstanceState.getParcelableArrayList(SELECTED_RECIPE_INGREDIENTS_PARAM);
+            stepsList = savedInstanceState.getParcelableArrayList(SELECTED_RECIPE_STEPS_PARAM);
+        }
     }
 
     public void initViews() {

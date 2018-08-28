@@ -31,6 +31,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class RecipeStepFragment extends Fragment {
     @BindView(R.id.layout_recipe_steps_container)
     LinearLayout layoutRecipeSteps;
 
+    private Bundle state;
     private Unbinder unbinder;
     private StepsItem step;
     private List<StepsItem> stepsList;
@@ -80,19 +82,25 @@ public class RecipeStepFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_step_details, parent, false);
         unbinder = ButterKnife.bind(this, view);
 
+        state = savedInstanceState;
+        getExtras();
+
+        return view;
+    }
+
+    private void getExtras() {
         Bundle args = getArguments();
-        if (args != null && savedInstanceState == null) {
+        if (args != null && state == null) {
             step = args.getParcelable(SELECTED_RECIPE_STEP_PARAM);
             stepsList = args.getParcelableArrayList(RECIPE_DETAILS_STEPS_PARAM);
             recipeVideoUrl = step.getVideoURL();
         } else {
-            step = savedInstanceState.getParcelable(SAVED_SELECTED_RECIPE_STEP_PARAM);
-            stepsList = savedInstanceState.getParcelableArrayList(SAVED_RECIPE_DETAILS_STEPS_PARAM);
+            step = state.getParcelable(SAVED_SELECTED_RECIPE_STEP_PARAM);
+            stepsList = state.getParcelableArrayList(SAVED_RECIPE_DETAILS_STEPS_PARAM);
             recipeVideoUrl = step.getVideoURL();
         }
 
         initializePlayer();
-        return view;
     }
 
     @Override
@@ -230,11 +238,19 @@ public class RecipeStepFragment extends Fragment {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
-    private void releasePlayer() {
-        if (exoPlayer != null) {
-            exoPlayer.stop();
-            exoPlayer.release();
-            exoPlayer = null;
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
         }
     }
 
@@ -244,6 +260,14 @@ public class RecipeStepFragment extends Fragment {
 
         unbinder.unbind();
         releasePlayer();
+    }
+
+    private void releasePlayer() {
+        if (exoPlayer != null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+            exoPlayer = null;
+        }
     }
 
     @Override
