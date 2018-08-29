@@ -8,5 +8,5 @@ import com.baking.thebaking.models.StepsItem;
 
 public interface OnRecipeStepSelectedInterface {
 
-    void OnRecipeStepSelected(StepsItem stepItem);
+    void OnRecipeStepSelected(int position, StepsItem stepItem);
 }

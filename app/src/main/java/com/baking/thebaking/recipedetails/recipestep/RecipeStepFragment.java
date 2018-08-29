@@ -46,8 +46,14 @@ import butterknife.Unbinder;
 
 public class RecipeStepFragment extends Fragment {
 
+    public static String SELECTED_RECIPE_VIDEO_POSITION_PARAM = "SELECTED_RECIPE_VIDEO_POSITION";
+    public static String SELECTED_RECIPE_VIDEO_STATE_PARAM = "SELECTED_RECIPE_VIDEO_STATE";
     public static String SELECTED_RECIPE_STEP_PARAM = "SELECTED_RECIPE_STEP";
     public static String RECIPE_DETAILS_STEPS_PARAM = "RECIPE_DETAILS_STEPS";
+    public static String SAVED_SELECTED_RECIPE_VIDEO_POSITION_PARAM = "SAVED_SELECTED_RECIPE_VIDEO_POSITION";
+    public static String SAVED_SELECTED_RECIPE_VIDEO_STATE_PARAM = "SAVED_SELECTED_RECIPE_VIDEO_STATE";
+    public static String SAVED_SELECTED_RECIPE_VIDEO_CURRENT_WINDOW_PARAM = "SELECTED_RECIPE_VIDEO_CURRENT_WINDOW";
+    public static String SSAVED_ELECTED_RECIPE_VIDEO_PLAY_READY_PARAM = "SELECTED_RECIPE_VIDEO_PLAY_READY";
     public static String SAVED_SELECTED_RECIPE_STEP_PARAM = "SAVED_SELECTED_RECIPE_STEP";
     public static String SAVED_RECIPE_DETAILS_STEPS_PARAM = "SAVED_RECIPE_DETAILS_STEPS";
 
@@ -60,6 +66,10 @@ public class RecipeStepFragment extends Fragment {
     @BindView(R.id.layout_recipe_steps_container)
     LinearLayout layoutRecipeSteps;
 
+    private int currentWindow;
+    private long playbackPosition;
+    private boolean autoPlay = false;
+    private int selectedRecipeIndex;
     private Bundle state;
     private Unbinder unbinder;
     private StepsItem step;
@@ -67,9 +77,10 @@ public class RecipeStepFragment extends Fragment {
     private SimpleExoPlayer exoPlayer;
     private String recipeVideoUrl;
 
-    public static RecipeStepFragment getInstance(StepsItem step, List<StepsItem> stepsList) {
+    public static RecipeStepFragment getInstance(int selectedRecipeIndex, StepsItem step, List<StepsItem> stepsList) {
         RecipeStepFragment fragment = new RecipeStepFragment();
         Bundle args = new Bundle();
+        args.putInt(SELECTED_RECIPE_VIDEO_POSITION_PARAM, selectedRecipeIndex);
         args.putParcelable(SELECTED_RECIPE_STEP_PARAM, step);
         args.putParcelableArrayList(RECIPE_DETAILS_STEPS_PARAM, (ArrayList<? extends Parcelable>) stepsList);
         fragment.setArguments(args);
@@ -91,10 +102,15 @@ public class RecipeStepFragment extends Fragment {
     private void getExtras() {
         Bundle args = getArguments();
         if (args != null && state == null) {
+            selectedRecipeIndex = args.getInt(SELECTED_RECIPE_VIDEO_POSITION_PARAM);
             step = args.getParcelable(SELECTED_RECIPE_STEP_PARAM);
             stepsList = args.getParcelableArrayList(RECIPE_DETAILS_STEPS_PARAM);
             recipeVideoUrl = step.getVideoURL();
         } else {
+            playbackPosition = state.getLong(SAVED_SELECTED_RECIPE_VIDEO_POSITION_PARAM);
+            currentWindow = state.getInt(SAVED_SELECTED_RECIPE_VIDEO_CURRENT_WINDOW_PARAM);
+            autoPlay = state.getBoolean(SSAVED_ELECTED_RECIPE_VIDEO_PLAY_READY_PARAM);
+            selectedRecipeIndex = state.getInt(SAVED_SELECTED_RECIPE_VIDEO_POSITION_PARAM);
             step = state.getParcelable(SAVED_SELECTED_RECIPE_STEP_PARAM);
             stepsList = state.getParcelableArrayList(SAVED_RECIPE_DETAILS_STEPS_PARAM);
             recipeVideoUrl = step.getVideoURL();
@@ -163,9 +179,11 @@ public class RecipeStepFragment extends Fragment {
             LoadControl loadControl = new DefaultLoadControl();
             exoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
             exoPlayerView.setPlayer(exoPlayer);
+            exoPlayer.setPlayWhenReady(autoPlay);
+            exoPlayer.seekTo(currentWindow, playbackPosition);
             MediaSource mediaSource = buildMediaSource(recipeVideoUrl);
             exoPlayer.prepare(mediaSource);
-            exoPlayer.setPlayWhenReady(true);
+
             Player.EventListener eventListener = new Player.EventListener() {
                 @Override
                 public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
@@ -184,7 +202,6 @@ public class RecipeStepFragment extends Fragment {
 
                 @Override
                 public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
                 }
 
                 @Override
@@ -264,6 +281,9 @@ public class RecipeStepFragment extends Fragment {
 
     private void releasePlayer() {
         if (exoPlayer != null) {
+            playbackPosition = exoPlayer.getCurrentPosition();
+            currentWindow = exoPlayer.getCurrentWindowIndex();
+            autoPlay = exoPlayer.getPlayWhenReady();
             exoPlayer.stop();
             exoPlayer.release();
             exoPlayer = null;
@@ -273,6 +293,11 @@ public class RecipeStepFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle currentState) {
         super.onSaveInstanceState(currentState);
+
+        currentState.putLong(SAVED_SELECTED_RECIPE_VIDEO_POSITION_PARAM, playbackPosition);
+        currentState.putInt(SAVED_SELECTED_RECIPE_VIDEO_CURRENT_WINDOW_PARAM, currentWindow);
+        currentState.putBoolean(SSAVED_ELECTED_RECIPE_VIDEO_PLAY_READY_PARAM, autoPlay);
+        currentState.putInt(SAVED_SELECTED_RECIPE_VIDEO_POSITION_PARAM, selectedRecipeIndex);
         currentState.putParcelable(SAVED_SELECTED_RECIPE_STEP_PARAM, step);
         currentState.putParcelableArrayList(SAVED_RECIPE_DETAILS_STEPS_PARAM, (ArrayList<? extends Parcelable>) stepsList);
     }

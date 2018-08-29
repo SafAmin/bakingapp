@@ -108,9 +108,9 @@ public class RecipeStepsFragment extends Fragment {
         rvRecipeSteps.setAdapter(new StepsRecipeAdapter(stepsList,
                 new StepsRecipeAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(StepsItem item) {
+                    public void onItemClick(int position, StepsItem item) {
                         if (((RecipeDetailsActivity) getActivity()) != null) {
-                            ((RecipeDetailsActivity) getActivity()).OnRecipeStepSelected(item);
+                            ((RecipeDetailsActivity) getActivity()).OnRecipeStepSelected(position, item);
                         }
                     }
                 }));

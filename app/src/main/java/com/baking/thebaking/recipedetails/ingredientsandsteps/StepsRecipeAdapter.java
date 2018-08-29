@@ -73,14 +73,14 @@ public class StepsRecipeAdapter extends RecyclerView.Adapter<StepsRecipeAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(model);
+                    listener.onItemClick(getAdapterPosition(), model);
                 }
             });
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(StepsItem item);
+        void onItemClick(int position, StepsItem item);
     }
 
     @Override

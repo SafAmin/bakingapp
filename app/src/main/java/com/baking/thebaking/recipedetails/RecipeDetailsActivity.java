@@ -75,13 +75,13 @@ public class RecipeDetailsActivity extends BaseActivity implements OnRecipeStepS
     }
 
     @Override
-    public void OnRecipeStepSelected(StepsItem stepItem) {
+    public void OnRecipeStepSelected(int position, StepsItem stepItem) {
         if (mTwoPane) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.layout_recipe_step_details, RecipeStepFragment.getInstance(stepItem,
+                    .replace(R.id.layout_recipe_step_details, RecipeStepFragment.getInstance(position, stepItem,
                             null)).commit();
         } else {
-            invalidateView(RecipeStepFragment.getInstance(stepItem, stepsList));
+            invalidateView(RecipeStepFragment.getInstance(position, stepItem, stepsList));
         }
     }
 
